@@ -1,7 +1,7 @@
 /**
  * @author Ethan Bonavida
  * @since March 18 2023
- * @version 1.03.F: check all other TODO's left in monster.java; cleaned up comments, and el fin;
+ * @version -1.03.F: check all other TODO's left in monster.java; fixed small typo and line in toString(); cleaned up comments, and el fin;
  * DESCRIPTION: LDPM - a program that emulates a game of monsters that have types and can attack each other, with modifiers based off certain attacking and defending types.
  * much better than the famous game by nintendo
  */
@@ -15,7 +15,7 @@
  * -0.02.a: start implementing the other classes and their functionalities; fully fixed setPhrase using instanceof; Ran through initial test and passed most;
  * -0.03.a: fixed toString() ( it returns all the stuff, duh!!); fixed adding negative attack, causing health overflow; fixed setting the default attackPoints with dice.roll(); all tests passed :)
  * -0.03.b: need to double check Monster(); fixed all method signatures; all tests still pass with flying colors :)
- * -1.03.F: check all other TODO's left in monster.java; cleaned up comments, and el fin;
+ * -1.03.F: check all other TODO's left in monster.java; fixed small typo and line in toString(); cleaned up comments, and el fin;
  *
  */
 
@@ -294,31 +294,33 @@ public abstract class Monster {
      */
     @Override
     public String toString() {
+        String object_info = "";
         if ( this.isFainted() ) {
-            return this.getName() + " has fainted.";
+            object_info += this.getName() + " has fainted.";
         }
         else  {
-            String object_info = "";
+
             object_info += this.getName() + " has " + this.getHealthPoints() + "/" + MAX_HP + " hp";
-            object_info +="\nElemental type: [";
-            // TODO optimize all this, seems it can be done much simpler, if its worth working on.
-            if (elements.size() == 1 ) {
-                object_info += this.elements.get(0); // get the first and only element
-            }
-            else {
-                for (ElementalType t : elements) {
-                    // if its the last one, then only add the element and not a comma
-                    if (elements.get(elements.size() - 1) == t) {
-                        object_info += t;
-                    }
-                    else { // not the last element, so add the element and then add a comma for next or last value.
-                        object_info += t + ", ";
-                    }
-                } // DEPRECATED ~lambda expression figure this out correctly https://www.geeksforgeeks.org/arraylist-foreach-method-in-java/
-            }
-            object_info += "]";
-            return object_info;
+
         }
+        object_info +="\nElemental type: [";
+        // TODO optimize all this, seems it can be done much simpler, if its worth working on.
+        if (elements.size() == 1 ) {
+            object_info += this.elements.get(0); // get the first and only element
+        }
+        else {
+            for (ElementalType t : elements) {
+                // if its the last one, then only add the element and not a comma
+                if (elements.get(elements.size() - 1) == t) {
+                    object_info += t;
+                }
+                else { // not the last element, so add the element and then add a comma for next or last value.
+                    object_info += t + ", ";
+                }
+            } // DEPRECATED ~lambda expression figure this out correctly https://www.geeksforgeeks.org/arraylist-foreach-method-in-java/
+        }
+        object_info += "]";
+        return object_info;
     }
 
     // ** setters/getters **
@@ -341,7 +343,7 @@ public abstract class Monster {
         }
         else {
             this.elements.add(T); // yes add type here
-            System.out.println(this.getName() + " now has " + T);
+            System.out.println(this.getName() + " now has type " + T);
             return 0;
         }
     }
